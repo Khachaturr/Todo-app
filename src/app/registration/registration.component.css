@@ -1,0 +1,160 @@
+#body{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 100%;
+    justify-self:center;
+    align-items: center;
+    
+}
+
+#header{
+    grid-column: 1/ span 3;
+    display: flex;
+    height: 200px;
+    background-color: rgb(33, 180, 33);
+    justify-content: center;
+    align-items: center;
+    color: white;   
+
+}
+
+#inputSectionForRegistration{
+    grid-column: 2/3;
+    justify-self:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 350px;
+    box-shadow: 0 2px 8px black;
+    border-radius: 10px;
+    margin-top: 20px;
+    position: relative;
+
+}
+
+#inputSectionForRegistration table{
+    width: 50%;
+}
+
+#inputSectionForRegistration table tr td {
+    padding-top: 1rem;
+    text-align: center;
+}
+#inputSectionForRegistration table tr td input{
+    padding: 7px;
+    border-radius: 15px;
+    border: 1px solid rgb(114, 106, 106);
+    outline: none;
+}
+#inputSectionForRegistration table tr td button{
+    margin-right: 7px;
+    padding: 10px;
+    width: 50%;
+    outline: none;
+   
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 8px rgb(73, 72, 72);
+    background-color: white;
+    cursor: pointer;
+}
+
+#inputSectionForRegistration table tr td button:hover{
+    background-color: rgb(53, 168, 53);
+    color: white;
+}
+
+#inputSectionForRegistration table tr td button:active{
+    background-color: green;
+    color: white;
+    
+}
+#inputSectionForRegistration i {
+  position: absolute;
+  top:5px;
+  right: 5px ;
+  border: none;
+  cursor: pointer;
+  
+  outline: none;
+}
+
+#inputSectionForRegistration i:hover{
+    color: rgb(247, 88, 88);
+}
+#inputSectionForRegistration i:active{
+    color: red;
+    padding: 1px;
+    
+    outline: none;
+    background-color: black;
+    border: none;
+}
+
+
+#inputSectionForLogin{
+    grid-column: 3/3;
+    justify-self:center;
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+    height: 300px;
+    width: 300px;
+    box-shadow: 0 2px 8px black;
+    border: none;
+    border-radius: 10px;
+}
+
+#inputSectionForLogin table tr td{
+    padding: 10px;
+}
+
+#inputSectionForLogin table tr td input{
+    padding: 5px;
+    outline: none;
+    border-radius: 15px;
+    border: 1px solid rgb(114, 106, 106);
+}
+
+#inputSectionForLogin table tr td{
+    text-align: center;
+}
+
+#inputSectionForLogin table tr td button{
+    border: none;
+    outline: none;
+    box-shadow: 0 2px 8px black;
+    margin-right: 5px;
+    background-color: white;
+    padding: 8px;
+    border-radius: 7px ;
+    cursor: pointer;
+}
+
+#inputSectionForLogin table tr td button:hover{
+    background-color: rgb(53, 168, 53);
+    color: white;
+}
+
+#inputSectionForLogin table tr td button:active{
+    background-color: green;
+}
+
+@media (max-width: 700px) {
+    #body{
+    grid-template-columns: 100%;
+
+    }
+    #inputSectionForRegistration{
+        grid-column: 1/2;
+    }
+    #inputSectionForLogin{
+        grid-column: 1/2;
+        margin-top: 15px;
+    }
+}
+
+
+
+
