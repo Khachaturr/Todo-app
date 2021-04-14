@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UsersService } from '../users.service';
+import { ValidationService } from '../Validation.service';
 
 @Component({
   selector: 'app-control-message',
@@ -18,7 +18,7 @@ export class ControlMessageComponent implements OnInit {
 
     for (let propertyName in this.control.errors) {
       if (this.control.errors[propertyName] && this.control.touched) {
-        return UsersService.getValidatorErrorMessage(propertyName)
+        return ValidationService.getValidatorErrorMessage(propertyName)
       }
 
     }

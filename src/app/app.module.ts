@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { TodosComponent } from './todos/todos.component';
-import { UsersService } from './users.service';
+import { ValidationService } from './Validation.service';
 import { ControlMessageComponent } from './control-message/control-message.component';
 
 
@@ -24,7 +24,7 @@ import { ControlMessageComponent } from './control-message/control-message.compo
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UsersService],
+  providers: [ValidationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

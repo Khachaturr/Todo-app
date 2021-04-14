@@ -6,7 +6,7 @@ import { AbstractControl } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class ValidationService {
 
   constructor() { }
   static getValidatorErrorMessage(validatorName: string) {
@@ -53,10 +53,5 @@ export class UsersService {
       return { comparePassword: true }
     }
   }
-
-
-
-
-
 
 }

@@ -2,10 +2,10 @@
     <div id="header">
         <h1>Todo App</h1>
     </div>
-    <div id="inputSectionForRegistration">
+    <div id="inputSectionForRegistration" *ngIf="isRegistrationSectionShow">
 
 
-        <i class="fa fa-window-close "></i>
+        <i class="fa fa-window-close " (click)="toggleRegistrationSection()"></i>
         <form [formGroup]="userRegistrationFormGroup" (submit)="save()">
             <table>
                 <tr>
@@ -110,7 +110,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button>Create an account</button></td>
+                    <td><button (click)="toggleRegistrationSection()">Create an account</button></td>
                 </tr>
             </table>
         </form>
