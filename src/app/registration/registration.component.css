@@ -99,8 +99,9 @@
     justify-self:center;
     align-items: center;
     display: flex;
+    flex-direction: column;
     justify-content: center; 
-    height: 270px;
+    height: 300px;
     width: 300px;
     padding: 10px;
     margin-top: 2rem;
@@ -141,6 +142,29 @@
 }
 
 #inputSectionForLogin table tr td button:active{
+    background-color: green;
+}
+
+#btnCreateAccount{
+    
+    border: none;
+    outline: none;
+    box-shadow: 0 2px 8px black;
+    margin-right: 5px;
+    width: 250px;
+    background-color: white;
+    padding: 8px;
+    margin-top: 2rem;
+    border-radius: 7px ;
+    cursor: pointer;
+}
+
+#btnCreateAccount:hover{
+    background-color: rgb(53, 168, 53);
+    color: white;
+}
+
+#btnCreateAccount:active{
     background-color: green;
 }
 

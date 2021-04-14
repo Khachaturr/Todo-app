@@ -2,8 +2,20 @@ import { UserService } from './../user.service';
 import { ValidationService } from '../Validation.service';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, } from '@angular/forms';
 
+
+export interface registrationFormObj {
+  email: string,
+  name: string,
+  surName: string,
+  password: any,
+  repeatPassword: any
+}
+interface loginUserObj {
+  email: '',
+  password: ''
+}
 
 
 @Component({
@@ -16,21 +28,34 @@ export class RegistrationComponent implements OnInit {
   userRegistrationFormGroup: FormGroup;
   userLoginFormGroup: FormGroup;
   _emailErrorForLogin: string;
-  _passwordErrorForLogin:string;
-  isRegistrationSectionShow:boolean=false;
+  _passwordErrorForLogin: string;
+  isRegistrationSectionShow: boolean = false;
+  isWriteInputofLogin: boolean = false
+  registrationUserInform: registrationFormObj = {
+    email: '',
+    name: '',
+    surName: '',
+    password: '',
+    repeatPassword: ''
+  };
+  loginUserInform: loginUserObj;
+
+
+
 
 
   get emailErrorForLogin() {
-    for (let propartyName in this.userLoginFormGroup.get('emailLogin').errors) {
-      if (this.userLoginFormGroup.get('emailLogin').errors[propartyName] && this.userLoginFormGroup.get('emailLogin').touched) {
+    for (let propartyName in this.userLoginFormGroup.get('email').errors) {
+      if (this.userLoginFormGroup.get('email').errors[propartyName]) {
         return ValidationService.getValidatorErrorMessage(propartyName)
       }
       return null
     }
+
   }
   get passwordErrorForLogin() {
-    for (let propartyName in this.userLoginFormGroup.get('passwordLogin').errors) {
-      if (this.userLoginFormGroup.get('passwordLogin').errors[propartyName] && this.userLoginFormGroup.get('passwordLogin').touched) {
+    for (let propartyName in this.userLoginFormGroup.get('password').errors) {
+      if (this.userLoginFormGroup.get('password').errors[propartyName]) {
         return ValidationService.getValidatorErrorMessage(propartyName)
       }
       return null
@@ -38,10 +63,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   constructor(private formbuilder: FormBuilder,
-              private userService:UserService ) { }
+    private userService: UserService) { }
 
   ngOnInit(): void {
-    
+
     this.userRegistrationFormGroup = this.formbuilder.group({
       name: ['', Validators.required],
       surName: ['', Validators.required],
@@ -51,21 +76,63 @@ export class RegistrationComponent implements OnInit {
     }, { validator: ValidationService.comparePasswordvalidator });
 
     this.userLoginFormGroup = this.formbuilder.group({
-      emailLogin: ['', [Validators.required, ValidationService.emailValidator]],
-      passwordLogin: ['', [Validators.required, ValidationService.passwordValidator]]
+      email: ['', [Validators.required, ValidationService.emailValidator]],
+      password: ['', [Validators.required, ValidationService.passwordValidator]]
     })
+    this.userRegistrationFormGroup.valueChanges.subscribe((value) => this.registrationUserInform = value)
+    this.userLoginFormGroup.valueChanges.subscribe((value) => this.loginUserInform = value)
+
 
   }
 
-  toggleRegistrationSection(){
-   this.isRegistrationSectionShow=!this.isRegistrationSectionShow
-    
-  }
+  toggleRegistrationSection() {
+    this.isRegistrationSectionShow = !this.isRegistrationSectionShow
 
-  save() {
-    console.log(this.userLoginFormGroup.get('email'))
-    console.log("j")
 
   }
+
+
+
+
+  saveUserData() {
+
+    for (let promp in this.registrationUserInform) {
+
+      if (this.registrationUserInform[promp] === '' || this.registrationUserInform[promp] === ' ') {
+        this.userService.isWrithenInputs = true;
+      }
+    }
+
+
+    if (this.userRegistrationFormGroup.status === "INVALID") {
+      // console.log(this.userRegistrationFormGroup)
+    } else {
+      console.log(this.userRegistrationFormGroup)
+      if (this.registrationUserInform.password === this.registrationUserInform.repeatPassword) {
+        delete this.registrationUserInform.repeatPassword
+        this.userService.saveUserInform(this.registrationUserInform)
+        this.toggleRegistrationSection()
+        this.userRegistrationFormGroup.reset()
+      }
+    }
+
+  }
+
+  Login() {
+    this.isWriteInputofLogin = true;
+    if (this.userLoginFormGroup.status === "INVALID") {
+
+    } else {
+      this.userService.login(this.loginUserInform);
+      if (this.userService.loginReques && this.userService.loginReques === 'true') {
+        this.isWriteInputofLogin = false;
+        this.userLoginFormGroup.reset();
+      }else{
+        alert(this.userService.loginReques)
+      }
+    }
+
+  }
+
 
 }

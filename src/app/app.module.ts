@@ -7,6 +7,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { TodosComponent } from './todos/todos.component';
 import { ValidationService } from './Validation.service';
 import { ControlMessageComponent } from './control-message/control-message.component';
+import { HttpClientModule } from '@angular/common/http'
+ 
 
 
 
@@ -22,7 +24,8 @@ import { ControlMessageComponent } from './control-message/control-message.compo
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [ValidationService],
   bootstrap: [AppComponent]

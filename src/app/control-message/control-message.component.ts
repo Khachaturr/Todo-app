@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ValidationService } from '../Validation.service';
 
@@ -9,23 +10,36 @@ import { ValidationService } from '../Validation.service';
 export class ControlMessageComponent implements OnInit {
   @Input() control: any;
 
+
   _errorMessage: string;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   get errorMessage() {
-    // console.log(this.control)
+    if (this.userService.isWrithenInputs === true) {
+      for (let propertyName in this.control.errors) {
+        if (this.control.errors[propertyName]) {
+          return ValidationService.getValidatorErrorMessage(propertyName)
+        }
 
-    for (let propertyName in this.control.errors) {
-      if (this.control.errors[propertyName] && this.control.touched) {
-        return ValidationService.getValidatorErrorMessage(propertyName)
+      }
+    } else {
+      for (let propertyName in this.control.errors) {
+        if (this.control.errors[propertyName] && this.control.touched) {
+          return ValidationService.getValidatorErrorMessage(propertyName)
+        }
       }
 
     }
     return null
   }
 
+
+
+
+
   ngOnInit(): void {
+
   }
 
 }

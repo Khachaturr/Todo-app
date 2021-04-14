@@ -6,7 +6,7 @@
 
 
         <i class="fa fa-window-close " (click)="toggleRegistrationSection()"></i>
-        <form [formGroup]="userRegistrationFormGroup" (submit)="save()">
+        <form [formGroup]="userRegistrationFormGroup" (submit)="saveUserData()">
             <table>
                 <tr>
                     <td></td>
@@ -67,7 +67,7 @@
 
                 <tr>
                     <td></td>
-                    <td><button type="submit" >Save</button></td>
+                    <td><button type="submit">Save</button></td>
                 </tr>
             </table>
         </form>
@@ -76,44 +76,49 @@
     </div>
 
     <div id="inputSectionForLogin">
-        
-        <form [formGroup]="userLoginFormGroup">
+
+        <form [formGroup]="userLoginFormGroup" (submit)="Login()">
 
             <table>
                 <tr>
                     <td></td>
                     <td>
-                        <div *ngIf="userLoginFormGroup.get('emailLogin').errors && userLoginFormGroup.get('emailLogin').touched">
-                            <p id="errorSection">{{emailErrorForLogin}}</p></div>
-                       
+                        <div
+                            *ngIf="userLoginFormGroup.get('email').errors && (userLoginFormGroup.get('email').touched || isWriteInputofLogin===true)">
+                            <p id="errorSection">{{emailErrorForLogin}}</p>
+                        </div>
+
                     </td>
                 </tr>
                 <tr>
                     <td><label for="email">Email:</label></td>
-                    <td><input type="email" name="email" formControlName="emailLogin"></td>
+                    <td><input type="email" name="email" formControlName="email"></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <div *ngIf="userLoginFormGroup.get('passwordLogin').errors && userLoginFormGroup.get('passwordLogin').touched">
-                            <p id="errorSection">{{passwordErrorForLogin}}</p></div>
-                       
+                        <div
+                            *ngIf="userLoginFormGroup.get('password').errors && (userLoginFormGroup.get('password').touched || isWriteInputofLogin===true)">
+                            <p id="errorSection">{{passwordErrorForLogin}}</p>
+                        </div>
+
                     </td>
                 </tr>
                 <tr>
                     <td><label for="password">Password:</label></td>
-                    <td><input type="password" name="password" formControlName="passwordLogin"></td>
+                    <td><input type="password" name="password" formControlName="password"></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td> <button  type="submit">Login</button></td>
+                    <td> <button type="submit">Login</button></td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td><button (click)="toggleRegistrationSection()">Create an account</button></td>
-                </tr>
+                
             </table>
         </form>
+        <div>
+            <button id="btnCreateAccount" (click)="toggleRegistrationSection()">Create an account</button>
+        </div>
+
 
     </div>
 </div>
