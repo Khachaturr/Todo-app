@@ -1,0 +1,9 @@
+#message{
+    color: white;
+    border: 1px solid rgb(122, 114, 114);
+    border-radius: 5px;
+    width: auto;
+    text-align: center;
+    padding: 5px;
+    background-color: red;
+}

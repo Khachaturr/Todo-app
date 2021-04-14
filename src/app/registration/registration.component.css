@@ -3,7 +3,7 @@
     grid-template-columns: auto auto auto;
     width: 100%;
     justify-self:center;
-    align-items: center;
+    /* align-items: center; */
     
 }
 
@@ -19,12 +19,13 @@
 }
 
 #inputSectionForRegistration{
+    padding: 10px;
     grid-column: 2/3;
     justify-self:center;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: auto;
     width: 350px;
     box-shadow: 0 2px 8px black;
     border-radius: 10px;
@@ -99,15 +100,17 @@
     align-items: center;
     display: flex;
     justify-content: center; 
-    height: 300px;
+    height: 270px;
     width: 300px;
+    padding: 10px;
+    margin-top: 2rem;
     box-shadow: 0 2px 8px black;
     border: none;
     border-radius: 10px;
 }
 
 #inputSectionForLogin table tr td{
-    padding: 10px;
+    padding: 5px;
 }
 
 #inputSectionForLogin table tr td input{
@@ -141,6 +144,15 @@
     background-color: green;
 }
 
+
+#errorSection{
+    width: auto;
+    padding: 7px;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+}
+
 @media (max-width: 700px) {
     #body{
     grid-template-columns: 100%;
@@ -151,7 +163,7 @@
     }
     #inputSectionForLogin{
         grid-column: 1/2;
-        margin-top: 15px;
+        margin: 15px;
     }
 }
 

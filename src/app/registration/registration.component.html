@@ -3,62 +3,117 @@
         <h1>Todo App</h1>
     </div>
     <div id="inputSectionForRegistration">
-        
-        
+
+
         <i class="fa fa-window-close "></i>
-        <table>
-            <tr>
-                <td>
-                    <label for="name">Name:</label>
+        <form [formGroup]="userRegistrationFormGroup" (submit)="save()">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <app-control-message [control]="userRegistrationFormGroup.get('name')"></app-control-message>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="name">Name:</label></td>
 
-                </td>
-                <td> <input type="text" name="name"></td>
-            </tr>
-            <tr>
-                <td><label for="surName">SurName:</label></td>
-                <td><input type="text" name="surName"></td>
-            </tr>
-            <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="email" name="email"></td>
-            </tr>
-            <tr>
-                <td><label for="password">Password:</label></td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            <tr>
-                <td><label for="repeatPassword">Repeat password:</label></td>
-                <td><input type="password" name="repeatPassword"></td>
-            </tr>
-            
-            <tr>
-                <td></td>
-                <td><button>Save</button></td>
-            </tr>
-        </table>
+                    <td> <input type="text" name="name" formControlName="name"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <app-control-message [control]="userRegistrationFormGroup.get('surName')"></app-control-message>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="surName">SurName:</label></td>
 
-    
+                    <td><input type="text" name="surName" formControlName="surName"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <app-control-message [control]="userRegistrationFormGroup.get('email')"></app-control-message>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+
+                    <td><input type="email" name="email" formControlName="email"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <app-control-message [control]="userRegistrationFormGroup.get('password')">
+                        </app-control-message>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+
+                    <td><input type="password" name="password" formControlName="password"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <app-control-message [control]="userRegistrationFormGroup"></app-control-message>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="repeatPassword">Repeat password:</label></td>
+
+                    <td><input type="password" name="repeatPassword" formControlName="repeatPassword"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><button type="submit" >Save</button></td>
+                </tr>
+            </table>
+        </form>
+
+
     </div>
 
     <div id="inputSectionForLogin">
-        <table>
-            <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="email" name="email"></td>
-            </tr>
-            <tr>
-                <td><label for="password">Password:</label></td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td> <button>Login</button></td>
-            </tr>
-            <tr >
-                <td></td>
-                <td><button>Create an account</button></td>
-            </tr>
-        </table>
+        
+        <form [formGroup]="userLoginFormGroup">
+
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div *ngIf="userLoginFormGroup.get('emailLogin').errors && userLoginFormGroup.get('emailLogin').touched">
+                            <p id="errorSection">{{emailErrorForLogin}}</p></div>
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" name="email" formControlName="emailLogin"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div *ngIf="userLoginFormGroup.get('passwordLogin').errors && userLoginFormGroup.get('passwordLogin').touched">
+                            <p id="errorSection">{{passwordErrorForLogin}}</p></div>
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" name="password" formControlName="passwordLogin"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> <button  type="submit">Login</button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button>Create an account</button></td>
+                </tr>
+            </table>
+        </form>
 
     </div>
 </div>
