@@ -3,6 +3,9 @@ import { ValidationService } from '../Validation.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 export interface registrationFormObj {
@@ -16,6 +19,7 @@ interface loginUserObj {
   email: '',
   password: ''
 }
+
 
 
 @Component({
@@ -39,6 +43,8 @@ export class RegistrationComponent implements OnInit {
     repeatPassword: ''
   };
   loginUserInform: loginUserObj;
+  subscribeLoginrequest: Subscription;
+  loginrequest: any;
 
 
 
@@ -63,7 +69,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   constructor(private formbuilder: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService,
+    private http: HttpClient,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -81,6 +89,7 @@ export class RegistrationComponent implements OnInit {
     })
     this.userRegistrationFormGroup.valueChanges.subscribe((value) => this.registrationUserInform = value)
     this.userLoginFormGroup.valueChanges.subscribe((value) => this.loginUserInform = value)
+    this.subscribeLoginrequest = this.userService.loginReques.subscribe((val) => this.loginrequest = val)
 
 
   }
@@ -102,37 +111,45 @@ export class RegistrationComponent implements OnInit {
         this.userService.isWrithenInputs = true;
       }
     }
-
-
     if (this.userRegistrationFormGroup.status === "INVALID") {
       // console.log(this.userRegistrationFormGroup)
     } else {
       console.log(this.userRegistrationFormGroup)
       if (this.registrationUserInform.password === this.registrationUserInform.repeatPassword) {
         delete this.registrationUserInform.repeatPassword
-        this.userService.saveUserInform(this.registrationUserInform)
-        this.toggleRegistrationSection()
-        this.userRegistrationFormGroup.reset()
+        // this.userService.saveUserInform(this.registrationUserInform)
+        this.http.post('http://localhost:9000/users', this.registrationUserInform).subscribe((res) => {
+          alert(res['id'])
+          this.toggleRegistrationSection();
+          this.userRegistrationFormGroup.reset();
+        }, (error) => alert(error.error))
+
       }
     }
 
   }
 
-  Login() {
+  login() {
     this.isWriteInputofLogin = true;
     if (this.userLoginFormGroup.status === "INVALID") {
 
     } else {
-      this.userService.login(this.loginUserInform);
-      if (this.userService.loginReques && this.userService.loginReques === 'true') {
+      this.http.post('http://localhost:9000/users/information', this.loginUserInform).subscribe((res) => {
+
+        this.loginrequest = res
+        localStorage.setItem('UserInform', JSON.stringify(this.loginrequest))
         this.isWriteInputofLogin = false;
         this.userLoginFormGroup.reset();
-      }else{
-        alert(this.userService.loginReques)
-      }
+        // console.log(this.loginrequest)
+        setTimeout(() => {
+          this.router.navigateByUrl('/todo')
+        }, 1000)
+
+      }, (error) => alert(error.error))
     }
 
   }
 
-
 }
+
+
