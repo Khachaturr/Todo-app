@@ -26,9 +26,10 @@
             </tr>
             <tr *ngFor='let param of tasksArr; let i = index'>
 
-                <td id="task">{{param.task}}</td>
+                <td  [ngClass]="{task:true,
+                                taskLin:check.checked}">{{param.task}}</td>
                 <td id="thCenter">
-                    <input class="checkbox" type="checkbox" title="Chous task is done or not">
+                    <input class="checkbox" type="checkbox" [ngModel]=param.checked  title="Chous task is done or not" #check (click)="taskDone($event, param.id)">
                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit task" (click)="editTask(param)"></i>
                     <i class="fa fa-trash-o" aria-hidden="true" title="Remuve task" (click)="remuve(param.id)"></i>
 

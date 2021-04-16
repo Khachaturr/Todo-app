@@ -109,9 +109,16 @@
     
 
 }
-#task{
+.task{
     padding: 7px;
     background-color: rgb(245, 240, 240);
+   
+    
+    
+}
+.taskLin{
+    text-decoration-line: line-through;
+    text-decoration-color: red
 }
 
 #thCenter{
