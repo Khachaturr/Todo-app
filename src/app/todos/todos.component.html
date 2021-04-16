@@ -6,37 +6,37 @@
             <p>whot are you whont todo?</p>
             <div id="inputSection">
                 <form [formGroup]="taskFormGroup" (submit)="addTask()">
-                    <input type="text" name="task" formControlName="task" >
+                    <input type="text" name="task" formControlName="task">
                     <button type="submit">Add task</button>
                 </form>
 
             </div>
         </div>
-        <div id="logoutButonSection"><button>logout<i style="margin-left: 3px;" class="fa fa-sign-out" aria-hidden="true"></i></button></div>
+        <div id="logoutButonSection"><button>logout<i style="margin-left: 3px;" class="fa fa-sign-out"
+                    aria-hidden="true"></i></button></div>
     </div>
 
     <div id="main">
         <table>
-            <tr >
-                <th id="thCenter"><h2>Your task list</h2></th>
-                <!-- <th>Edit</th>
-                <th>done?</th>
-                <th>Remuve</th> -->
+            <tr>
+                <th id="thCenter">
+                    <h2>Your task list</h2>
+                </th>
+
             </tr>
-            <tr *ngFor='let param of tasksArr; let i = index' >
-                
+            <tr *ngFor='let param of tasksArr; let i = index'>
+
                 <td id="task">{{param.task}}</td>
                 <td id="thCenter">
                     <input class="checkbox" type="checkbox" title="Chous task is done or not">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit task"></i> 
-                    <i class="fa fa-trash-o" aria-hidden="true" title="Remuve task"></i>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit task" (click)="editTask(param)"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true" title="Remuve task" (click)="remuve(param.id)"></i>
 
                 </td>
-                <!-- <td><input type="checkbox"></td>
-                <td><i class="fa fa-trash-o" aria-hidden="true"></i></td> -->
+
             </tr>
         </table>
-        
+
     </div>
 
 </div>
