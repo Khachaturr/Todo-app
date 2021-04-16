@@ -1,0 +1,132 @@
+#body{
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+   
+    width: 100%;
+    
+}
+#header{
+    grid-column: 1/span 3;
+    display: grid;
+    padding: 1rem 5px;
+    grid-template-columns: 15% 70% 15%;
+    background-color: rgb(64, 148, 64);
+}
+
+#informSection{
+    grid-column: 2/3;
+    justify-self: center;
+    
+    width: 80%;
+}
+#informSection h1, p{
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+#informSection input{
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+#logoutButonSection{
+    grid-column: 3;
+    justify-self: end
+}
+#inputSection form{
+    display: flex;
+    
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 0;
+
+}
+#inputSection form button{
+    background-color: rgb(64, 148, 64);
+    color: white;
+    border: 1px solid white;
+    border-radius: 2px;
+    outline: none;
+    margin-left: 5px;
+    width: 70px;
+
+}
+#inputSection form button:hover{
+    background-color: rgb(57, 124, 57);
+    cursor: pointer;
+}
+#inputSection form button:active{
+    background-color: rgb(95, 216, 95);
+    cursor: pointer;
+}
+
+#logoutButonSection button{
+    background-color: rgb(64, 148, 64);
+    color: white;
+    border: 1px solid white;
+    border-radius: 2px;
+    outline: none;
+    margin-left: 5px;
+    width: 70px;
+    padding: 7px;
+
+}
+#logoutButonSection button:hover{
+    background-color: rgb(57, 124, 57);
+    cursor: pointer;
+}
+
+#logoutButonSection button:activ{
+    background-color: rgb(95, 216, 95);
+    cursor: pointer;
+}
+
+#main{
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 5px;
+    
+}
+#main table{
+    width: 70%;
+    margin-top: 2rem;
+}
+
+#main table tr {
+    margin: 10px;
+    
+   
+}
+#main table tr th h2{
+    margin-left: 5rem;
+    color :rgb(158, 120, 120);
+    margin-bottom: 2rem;
+    
+
+}
+#task{
+    padding: 7px;
+    background-color: rgb(245, 240, 240);
+}
+
+#thCenter{
+    text-align: center;
+}
+
+#thCenter i{
+    margin-left: 5px;
+    
+}
+.checkbox:hover{
+    cursor: pointer;
+    
+}
+.fa{
+    cursor: pointer;
+}
+

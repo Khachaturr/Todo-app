@@ -143,6 +143,7 @@ export class RegistrationComponent implements OnInit {
         // console.log(this.loginrequest)
         setTimeout(() => {
           this.router.navigateByUrl('/todo')
+          this.userLoginFormGroup.reset();
         }, 1000)
 
       }, (error) => alert(error.error))

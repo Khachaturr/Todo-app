@@ -5,7 +5,8 @@
     <div id="inputSectionForRegistration" *ngIf="isRegistrationSectionShow">
 
 
-        <i class="fa fa-window-close " (click)="toggleRegistrationSection()"></i>
+        
+        <i class="fa fa-times" aria-hidden="true" (click)="toggleRegistrationSection()"></i>
         <form [formGroup]="userRegistrationFormGroup" (submit)="saveUserData()">
             <table>
                 <tr>
