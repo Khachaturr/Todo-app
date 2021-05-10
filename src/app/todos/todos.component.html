@@ -2,9 +2,12 @@
     <div id="header">
         <div id="informSection">
             <h1>Todo App</h1>
-            <p>Khachatur Martirosyan</p>
+            <p>{{name}} {{sureName}}</p>
             <p>whot are you whont todo?</p>
             <div id="inputSection">
+                <div *ngIf="taskFormGroup.get('task').errors && isdeclaretionTaskInput" class="warningSection">
+                    <p>{{errorMessage}}</p>
+                </div>
                 <form [formGroup]="taskFormGroup" (submit)="addTask()">
                     <input type="text" name="task" formControlName="task">
                     <button type="submit">Add task</button>
@@ -12,31 +15,44 @@
 
             </div>
         </div>
-        <div id="logoutButonSection"><button>logout<i style="margin-left: 3px;" class="fa fa-sign-out"
+        <div id="logoutButonSection"><button (click)=logout()>logout<i style="margin-left: 3px;" class="fa fa-sign-out"
                     aria-hidden="true"></i></button></div>
     </div>
 
     <div id="main">
-        <table>
+
+        <table  [class.hideChecked]="hideChecked">
             <tr>
-                <th id="thCenter">
-                    <h2>Your task list</h2>
+                <th class="thCenter">
+                    <div class="hideOrShowTascks">
+                        <h2>Your task list</h2>
+                        <p><button (click)="toggle()">Hide/show checked tasks</button></p>
+                    </div>
                 </th>
 
             </tr>
-            <tr *ngFor='let param of tasksArr; let i = index'>
+            <tr class="task" [class.taskLin]="check.checked" *ngFor='let param of tasksArr; let i = index'>
 
-                <td  [ngClass]="{task:true,
-                                taskLin:check.checked}">{{param.task}}</td>
-                <td id="thCenter">
-                    <input class="checkbox" type="checkbox" [ngModel]=param.checked  title="Chous task is done or not" #check (click)="taskDone($event, param.id)">
+                <td>{{param.task}}</td>
+                <td class="thCenter">
+                    <input id="checkbox" type="checkbox" [ngModel]=param.checked title="Chous task is done or not"
+                        #check (click)="taskDone($event, param.id)">
                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit task" (click)="editTask(param)"></i>
-                    <i class="fa fa-trash-o" aria-hidden="true" title="Remuve task" (click)="remuve(param.id)"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true" title="Remuve task"
+                        (click)="remuve($event,param.id)"></i>
 
                 </td>
 
             </tr>
         </table>
+        <div class="confirmDeleteSec" *ngIf="confirmDeleteSection">
+            <h3>Do you want to delate this task?</h3>
+            <div>
+                <button (click)="toggleConfirmdeleteSection()">No</button>
+                <button (click)="confirmRemuve()">Yes</button>
+            </div>
+
+        </div>
 
     </div>
 

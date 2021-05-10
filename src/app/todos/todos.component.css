@@ -16,7 +16,7 @@
 #informSection{
     grid-column: 2/3;
     justify-self: center;
-    
+    position: relative;
     width: 80%;
 }
 #informSection h1, p{
@@ -36,6 +36,7 @@
     grid-column: 3;
     justify-self: end
 }
+
 #inputSection form{
     display: flex;
     
@@ -90,6 +91,7 @@
     justify-content: center;
     margin-top: 2rem;
     padding: 5px;
+    position: relative;
     
 }
 #main table{
@@ -102,34 +104,53 @@
     
    
 }
-#main table tr th h2{
-    margin-left: 5rem;
-    color :rgb(158, 120, 120);
+
+.hideOrShowTascks{
     margin-bottom: 2rem;
+    text-align: center;
+}
+.hideOrShowTascks button{
+    border: none;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 1px 3px black;
+}
+.hideOrShowTascks button:hover{
+    background-color: rgb(241, 95, 85);
+    cursor: pointer;
+}
+.hideOrShowTascks button:active{
+    background-color: red;
+    color: white;
+}
+
+#main table tr th h2{
+    color :rgb(158, 120, 120);
+    
     
 
 }
-.task{
+.task > td:first-child{
     padding: 7px;
     background-color: rgb(245, 240, 240);
-   
-    
-    
 }
-.taskLin{
+.taskLin > td:first-child{
     text-decoration-line: line-through;
     text-decoration-color: red
 }
 
-#thCenter{
+.thCenter{
     text-align: center;
 }
 
-#thCenter i{
+.thCenter i{
     margin-left: 5px;
     
 }
-.checkbox:hover{
+#checkbox{
+    background-color: red;
+}
+#checkbox:hover{
     cursor: pointer;
     
 }
@@ -137,3 +158,56 @@
     cursor: pointer;
 }
 
+.remuvIcone{
+    color: red;
+}
+.confirmDeleteSec{
+    position: absolute;
+    top: 10px;
+    left: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px black;
+    border-radius: 5px;
+    background-color: white;
+    
+}
+
+.confirmDeleteSec h3{
+    padding: 10px;
+    color: red;
+}
+.confirmDeleteSec button{
+    width: 50px;
+    padding: 7px;
+    margin: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 0 1px 4px black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirmDeleteSec button:hover{
+    background-color: red;
+}
+.confirmDeleteSec button:active{
+    background-color: rgb(207, 61, 61);
+    color: white;
+}
+.warningSection{
+    background-color: red;
+    color: white;
+    position: absolute;
+    z-index: 999;
+    top: 5rem;
+    left: 30%;
+    width: 30%;
+    min-width: 70px;
+
+}
+table.hideChecked > tr.taskLin {
+    display: none;
+}
