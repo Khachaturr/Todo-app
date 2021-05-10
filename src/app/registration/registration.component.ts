@@ -1,10 +1,7 @@
 import { UserService } from './../user.service';
 import { ValidationService } from '../Validation.service';
-
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { FormGroup, } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
@@ -15,6 +12,7 @@ export interface registrationFormObj {
   password: any,
   repeatPassword: any
 }
+
 interface loginUserObj {
   email: '',
   password: ''
@@ -43,11 +41,6 @@ export class RegistrationComponent implements OnInit {
     repeatPassword: ''
   };
   loginUserInform: loginUserObj;
-  subscribeLoginrequest: Subscription;
-  loginrequest: any;
-
-
-
 
 
   get emailErrorForLogin() {
@@ -68,62 +61,40 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  constructor(private formbuilder: FormBuilder,
-    private userService: UserService,
-    private http: HttpClient,
-    private router: Router) { }
-
-  ngOnInit(): void {
-
-    this.userRegistrationFormGroup = this.formbuilder.group({
-      name: ['', Validators.required],
-      surName: ['', Validators.required],
-      email: ['', [Validators.required, ValidationService.emailValidator]],
-      password: ['', [Validators.required, ValidationService.passwordValidator]],
-      repeatPassword: ['', [Validators.required]]
-    }, { validator: ValidationService.comparePasswordvalidator });
-
-    this.userLoginFormGroup = this.formbuilder.group({
-      email: ['', [Validators.required, ValidationService.emailValidator]],
-      password: ['', [Validators.required, ValidationService.passwordValidator]]
-    })
-    this.userRegistrationFormGroup.valueChanges.subscribe((value) => this.registrationUserInform = value)
-    this.userLoginFormGroup.valueChanges.subscribe((value) => this.loginUserInform = value)
-    this.subscribeLoginrequest = this.userService.loginReques.subscribe((val) => this.loginrequest = val)
-
+  constructor(private userService: UserService, private router: Router,) {
 
   }
+
+  ngOnInit(): void {
+    this.userRegistrationFormGroup = this.userService.registrationFormBuilder();
+    this.userLoginFormGroup = this.userService.loginFormBuilder()
+    this.userRegistrationFormGroup.valueChanges.subscribe((value) => this.registrationUserInform = value)
+    this.userLoginFormGroup.valueChanges.subscribe((value) => this.loginUserInform = value)
+  }
+
 
   toggleRegistrationSection() {
     this.isRegistrationSectionShow = !this.isRegistrationSectionShow
-
-
   }
 
-
-
-
   saveUserData() {
-
     for (let promp in this.registrationUserInform) {
-
       if (this.registrationUserInform[promp] === '' || this.registrationUserInform[promp] === ' ') {
         this.userService.isWrithenInputs = true;
       }
     }
+
     if (this.userRegistrationFormGroup.status === "INVALID") {
-      // console.log(this.userRegistrationFormGroup)
+      // do nothing
     } else {
-      console.log(this.userRegistrationFormGroup)
       if (this.registrationUserInform.password === this.registrationUserInform.repeatPassword) {
         delete this.registrationUserInform.repeatPassword
-        // this.userService.saveUserInform(this.registrationUserInform)
-        this.http.post('http://localhost:9000/users', this.registrationUserInform).subscribe((res) => {
-          alert(res['id'])
-          this.toggleRegistrationSection();
-          this.userRegistrationFormGroup.reset();
-        }, (error) => alert(error.error))
 
+        this.userService.sendUserDataToServer(this.registrationUserInform).subscribe((res) => {
+          this.toggleRegistrationSection();
+          this.userRegistrationFormGroup.reset()
+          alert(res['valid'])
+        }, (error) => alert(error.error))
       }
     }
 
@@ -134,13 +105,10 @@ export class RegistrationComponent implements OnInit {
     if (this.userLoginFormGroup.status === "INVALID") {
 
     } else {
-      this.http.post('http://localhost:9000/users/information', this.loginUserInform).subscribe((res) => {
-
-        this.loginrequest = res
-        localStorage.setItem('UserInform', JSON.stringify(this.loginrequest))
+      this.userService.login(this.loginUserInform).subscribe((res) => {
+        localStorage.setItem("UserInform", JSON.stringify(res))
         this.isWriteInputofLogin = false;
-        this.userLoginFormGroup.reset();
-        // console.log(this.loginrequest)
+
         setTimeout(() => {
           this.router.navigateByUrl('/todo')
           this.userLoginFormGroup.reset();
@@ -152,5 +120,3 @@ export class RegistrationComponent implements OnInit {
   }
 
 }
-
-

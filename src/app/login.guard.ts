@@ -6,14 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let isGuard=localStorage.getItem("UserInform")
-       
-      if(isGuard){
-        return true
-      }else return false
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    let ւserInformJson = localStorage.getItem("UserInform")
+    let ւserInform = JSON.parse(ւserInformJson)
+
+    if (ւserInform.isGuard === 'true') {
+      return true
+    } else return false
   }
-  
+
 }
