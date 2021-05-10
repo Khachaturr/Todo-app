@@ -28,10 +28,7 @@ export class ValidationService {
     }
   }
 
-
   static passwordValidator(control) {
-    // control.log(control)
-
     if ((/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/).test(control.value) === true) {
 
       return true
@@ -44,10 +41,8 @@ export class ValidationService {
   static comparePasswordvalidator(control: AbstractControl): any {
     const pass = control.get('password').value
     const repeatPasword = control.get('repeatPassword').value
-    // console.log(repeatPasword)
-    // console.log(pass)
-    if (pass === repeatPasword) {
 
+    if (pass === repeatPasword) {
       return null
     } else {
       return { comparePassword: true }
