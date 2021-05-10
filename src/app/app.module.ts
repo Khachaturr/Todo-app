@@ -8,13 +8,13 @@ import { TodosComponent } from './todos/todos.component';
 import { ValidationService } from './Validation.service';
 import { ControlMessageComponent } from './control-message/control-message.component';
 import { HttpClientModule } from '@angular/common/http'
-import {  RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './login.guard';
- 
-const routes:Routes=[
-  {path:'todo', canActivate:[LoginGuard], component:TodosComponent},
-  {path:'login', component:RegistrationComponent},
-  {path:"", redirectTo:"login", pathMatch:"full"}
+
+const routes: Routes = [
+  { path: 'todo', canActivate: [LoginGuard], component: TodosComponent },
+  { path: 'login', component: RegistrationComponent },
+  { path: "", redirectTo: "login", pathMatch: "full" }
 ]
 
 
@@ -23,10 +23,7 @@ const routes:Routes=[
     AppComponent,
     RegistrationComponent,
     TodosComponent,
-    ControlMessageComponent,
-    
-    
-   
+    ControlMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +32,7 @@ const routes:Routes=[
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [ValidationService,LoginGuard],
+  providers: [ValidationService, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
