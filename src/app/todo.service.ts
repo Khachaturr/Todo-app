@@ -1,65 +1,57 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  taskObservable = new Subject();
-  tasksOvserable = new Subject();
-  remuveTaskObservable = new Subject();
-  editTaskOvservable = new Subject();
-  taskDoneOvservable= new Subject();
+ 
+  constructor(private http: HttpClient, private router:Router, private formbuilder: FormBuilder) {
+  }
 
+  taskFormBuilder(){
+    return this.formbuilder.group({
+      task: ['', Validators.required]
+    })
+  }
 
-
-  constructor(private http: HttpClient) { }
   sendTaskServer(body) {
-    this.http.post('http://localhost:9000/todo/tasks', body).subscribe((res) => {
-      // console.log(res['valid'])
-      if (res['valid'] === 'true') {
-        // console.log("gh")
-        this.taskObservable.next(body)
-      }
-    })
+   return this.http.post('http://localhost:9000/todo/tasks', body)
   }
-  getTasksIsServer() {
-    this.http.get("http://localhost:9000/todo/all/tasks").subscribe((res) => {
-      this.tasksOvserable.next(res)
-    })
 
+  
 
+  getTasksFromServer() {
+  return this.http.get("http://localhost:9000/todo/all/tasks")
   }
-  delateTask(id) {
-    this.http.delete(`http://localhost:9000/todo/task/delete/${id}`).subscribe((res) => {
 
-      if (res['valid'] === 'true') {
-        // console.log(res['valid'])
-        this.remuveTaskObservable.next(id)
-
-      }
-    }, (error) => { alert(error.error) })
-
+  
+  remuveTask(id) {
+   return this.http.delete(`http://localhost:9000/todo/task/delete/${id}`)
   }
+
+
   editTask(body) {
-    this.http.put('http://localhost:9000/todo/task/edit', body).subscribe((res) => {
-      // console.log(res)
-      if (res['valid'] === 'true') {
-        this.editTaskOvservable.next(body)
-      }
-    }, (error) => alert(error.error))
+   return  this.http.put('http://localhost:9000/todo/task/edit', body)
   }
+
+
   taskDone(body) {
-     this.http.patch('http://localhost:9000/todo/edit/task/done',body).subscribe((res)=>{
-       
-       if(res['valid']==='true'){
-        console.log(res)
-         this.taskDoneOvservable.next(body)
-       }
-     })
+    return this.http.patch('http://localhost:9000/todo/edit/task/done',body)
   }
+
+
+  logout(){
+    setTimeout(()=>{
+      this.router.navigateByUrl("/login")
+    },1000)
+    localStorage.removeItem("UserInform")
+
+  }
+  
 
 
 }
